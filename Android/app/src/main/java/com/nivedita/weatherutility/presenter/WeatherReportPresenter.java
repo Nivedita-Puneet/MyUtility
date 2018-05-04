@@ -42,6 +42,7 @@ public class WeatherReportPresenter extends BasePresenter<MainMVPView> {
             public void accept(WeatherReport weatherReport) throws Exception {
                 if (!weatherReport.getList().isEmpty()) {
                     getMvpView().showWeatherReports(weatherReport);
+
                 } else {
                     getMvpView().noWeatherReports();
                 }
