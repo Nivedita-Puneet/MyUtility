@@ -13,6 +13,8 @@ import com.nivedita.weatherutility.model.Network.LogNetworkError;
 import com.nivedita.weatherutility.model.WeatherReport;
 import com.nivedita.weatherutility.model.Weatherattrs;
 import com.nivedita.weatherutility.presenter.WeatherReportPresenter;
+import com.nivedita.weatherutility.util.DataProcessUtil;
+import com.nivedita.weatherutility.util.WeatherDateUtils;
 import com.nivedita.weatherutility.view.MainMVPView;
 
 import java.util.ArrayList;
@@ -47,7 +49,6 @@ public class WeatherReportActivity extends BaseActivity implements MainMVPView {
         /*Initialize the dagger component*/
 
         getmActivityComponent().inject(WeatherReportActivity.this);
-
         /*Attach the view to the presenter*/
         weatherReportPresenter.attachView(WeatherReportActivity.this);
 
@@ -65,30 +66,47 @@ public class WeatherReportActivity extends BaseActivity implements MainMVPView {
     public void showWeatherReports(WeatherReport weatherReport) {
 
         //TODO: Need to refactor Data processing
-        ArrayList<Weatherattrs> weatherDetails = new ArrayList<>();
+        weatherArray = new String[weatherReport.getList().size()];
+
+        long localDate = System.currentTimeMillis();
+        long utcDate = WeatherDateUtils.getUTCDateFromLocal(localDate);
+        long startDay = WeatherDateUtils.normalizeDate(utcDate);
+
+        long dateTimeMillis;
+        double high;
+        double low;
+        String description;
+
         int arraySize = weatherReport.getList().size();
         for (int i = 0; i < arraySize; i++) {
 
-            /*get the parameters to be displayed.*/
-            long date = weatherReport.getList().get(i).getDt();
-            double min = weatherReport.getList().get(i).getTemp().getMin();
-            double max = weatherReport.getList().get(i).getTemp().getMax();
+            String date;
+            String highAndLow;
 
-            String desc = weatherReport.getList().get(i).getWeather().get(0).getMain();
+            dateTimeMillis = startDay + WeatherDateUtils.DAY_IN_MILLIS * i;
+            date = WeatherDateUtils.getFriendlyDateString(WeatherReportActivity.this,
+                    dateTimeMillis, false);
+            Log.i(TAG, date);
 
-            Weatherattrs weatherattrs = new Weatherattrs(date, min, max, desc);
-            weatherDetails.add(weatherattrs);
+            /*Get the description paramater*/
+            description = weatherReport.getList().get(i).getWeather().get(0).getMain();
 
-            Log.i(TAG,
-                    weatherDetails.get(i).getDate() + "-" +
-                            weatherDetails.get(i).getWeatherDesc());
+            /*get the low and max temprature.*/
+            low = weatherReport.getList().get(i).getTemp().getMin();
+            high = weatherReport.getList().get(i).getTemp().getMax();
+            highAndLow = DataProcessUtil.formatHighLows(WeatherReportActivity.this, high, low);
+
+            weatherArray[i] = date + "-" + description + "-" + highAndLow;
+            Log.i(TAG + "The weather details are", weatherArray[i]);
         }
 
+        weatherReportAdapter.setmWeatherData(weatherArray);
     }
 
     @Override
     public void noWeatherReports() {
 
+        Log.i(TAG, "No weather reports to dislay");
     }
 
     @Override
