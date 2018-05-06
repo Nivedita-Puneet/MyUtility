@@ -25,7 +25,8 @@ public class DataManager {
 
         return weatherService.getWeatherReport(ConstantsUtil.PLACE,
                 Integer.toString(ConstantsUtil.COUNT),
-                ConstantsUtil.METRIC,
+                ConstantsUtil.UNITS,
+                ConstantsUtil.FORMAT_PARAM,
                 ConstantsUtil.WEATHER_API_KEY);
     }
 }

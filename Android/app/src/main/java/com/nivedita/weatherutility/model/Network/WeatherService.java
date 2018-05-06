@@ -18,7 +18,8 @@ public interface WeatherService {
     @GET("daily")
     Flowable<WeatherReport> getWeatherReport(@Query("q") String place,
                                              @Query("cnt") String count,
-                                             @Query("metric") String unit,
+                                             @Query("units") String unit,
+                                             @Query("mode") String response,
                                              @Query("appid") String apiKey);
 
     /*Helper class to create a service*/

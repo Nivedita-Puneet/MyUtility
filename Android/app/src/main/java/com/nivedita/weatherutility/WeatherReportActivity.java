@@ -94,12 +94,15 @@ public class WeatherReportActivity extends BaseActivity implements MainMVPView {
             /*get the low and max temprature.*/
             low = weatherReport.getList().get(i).getTemp().getMin();
             high = weatherReport.getList().get(i).getTemp().getMax();
-            highAndLow = DataProcessUtil.formatHighLows(WeatherReportActivity.this, high, low);
+            highAndLow = DataProcessUtil.formatHighLows(WeatherReportActivity.this,
+                    high, low);
 
             weatherArray[i] = date + "-" + description + "-" + highAndLow;
             Log.i(TAG + "The weather details are", weatherArray[i]);
+
         }
 
+        //Set the adapter to a weather array.
         weatherReportAdapter.setmWeatherData(weatherArray);
     }
 

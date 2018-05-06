@@ -11,7 +11,11 @@ public class ConstantsUtil {
 
     public static final int COUNT = 14;
 
-    public static final String METRIC= "json";
+    public static final String FORMAT_PARAM= "json";
+
+    public static final String UNITS = "metric";
+
+    public static final String GETWEATHERFORTODAY = "WeatherForToday";
 
 
 

@@ -3,6 +3,7 @@ package com.nivedita.weatherutility;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,25 +13,39 @@ public class WeatherReportAdapter extends RecyclerView.Adapter<WeatherReportAdap
 
     private String[] mWeatherData;
     private Context context;
+    private WeatherReportAdapterOnclickHandler weatherReportAdapterOnclickHandler;
 
-    public WeatherReportAdapter(Context context) {
+    public WeatherReportAdapter(Context context,
+                                WeatherReportAdapterOnclickHandler weatherReportAdapterOnclickHandler) {
 
         this.context = context;
+        this.weatherReportAdapterOnclickHandler = weatherReportAdapterOnclickHandler;
         mWeatherData = new String[20];
 
     }
 
-    public class WeatherReportAdapterViewHolder extends RecyclerView.ViewHolder {
+    public interface WeatherReportAdapterOnclickHandler {
+
+        void clickListener(String weatherForToday);
+    }
+
+    public class WeatherReportAdapterViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
 
         public final TextView mWeatherTextView;
 
         WeatherReportAdapterViewHolder(View view) {
             super(view);
             mWeatherTextView = (TextView) view.findViewById(R.id.tv_weather_data);
-
+            view.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
 
+            WeatherReportAdapter.this.weatherReportAdapterOnclickHandler.
+                    clickListener(mWeatherData[getAdapterPosition()]);
+        }
     }
 
     @NonNull
@@ -65,6 +80,7 @@ public class WeatherReportAdapter extends RecyclerView.Adapter<WeatherReportAdap
 
     public void setmWeatherData(String[] mWeatherData) {
 
+        Log.i(WeatherReportAdapter.class.getSimpleName(), ""+ mWeatherData.length);
         this.mWeatherData = mWeatherData;
         notifyDataSetChanged();
     }
