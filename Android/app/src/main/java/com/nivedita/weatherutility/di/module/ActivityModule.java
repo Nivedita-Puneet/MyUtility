@@ -21,8 +21,10 @@ public class ActivityModule {
     private Activity mActivity;
     private WeatherReportAdapter.WeatherReportAdapterOnclickHandler weatherReportAdapterOnclickHandler;
 
-    public ActivityModule(Activity mActivity) {
+    public ActivityModule(Activity mActivity,
+                          WeatherReportAdapter.WeatherReportAdapterOnclickHandler weatherReportAdapterOnclickHandler) {
         this.mActivity = mActivity;
+        this.weatherReportAdapterOnclickHandler = weatherReportAdapterOnclickHandler;
     }
 
     @Provides
@@ -38,10 +40,10 @@ public class ActivityModule {
 
     @Provides
     WeatherReportAdapter weatherReportAdapter() {
-        return new WeatherReportAdapter(this.mActivity,weatherReportAdapterOnclickHandler);
+        return new WeatherReportAdapter(this.mActivity,this.weatherReportAdapterOnclickHandler);
     }
 
-    @Provides
+    /*@Provides
     @ActivityContext
     WeatherReportAdapter.WeatherReportAdapterOnclickHandler weatherReportAdapterOnclickHandler() {
         return new WeatherReportAdapter.WeatherReportAdapterOnclickHandler() {
@@ -60,5 +62,6 @@ public class ActivityModule {
     Intent provideDetailIntent(){
 
         return new Intent(mActivity, DetailActivity.class);
-    }
+    }*/
+
 }
