@@ -17,6 +17,12 @@ public class ConstantsUtil {
 
     public static final String GETWEATHERFORTODAY = "WeatherForToday";
 
+    public static final String WEATHERSHAREDPREFS= "weatherSharedPrefs";
+
+    public static final String LOCATION_KEY = "location";
+
+    public static final String DEFAULT_LOCATION = "Sydney";
+
 
 
 }

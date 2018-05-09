@@ -1,10 +1,13 @@
 package com.nivedita.weatherutility;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -104,6 +107,25 @@ public class WeatherReportActivity extends BaseActivity implements MainMVPView {
 
         //Set the adapter to a weather array.
         weatherReportAdapter.setmWeatherData(weatherArray);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+
+        int id = menuItem.getItemId();
+        if (id == R.id.action_settings) {
+            startActivity(new Intent(WeatherReportActivity.this,
+                    SettingsActivity.class));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(menuItem);
     }
 
     @Override

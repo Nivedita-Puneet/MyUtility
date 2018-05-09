@@ -3,8 +3,10 @@ package com.nivedita.weatherutility.di.module;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.nivedita.weatherutility.di.scope.ApplicationContext;
+import com.nivedita.weatherutility.model.Network.ConstantsUtil;
 
 import dagger.Module;
 import dagger.Provides;
@@ -28,5 +30,10 @@ public class ApplicationModule {
     @ApplicationContext
     Context provideContext(){
         return mApplication;
+    }
+
+    @Provides
+    SharedPreferences provideSharedPrefs(){
+        return mApplication.getSharedPreferences(ConstantsUtil.WEATHERSHAREDPREFS, Context.MODE_PRIVATE);
     }
 }

@@ -43,25 +43,4 @@ public class ActivityModule {
         return new WeatherReportAdapter(this.mActivity,this.weatherReportAdapterOnclickHandler);
     }
 
-    /*@Provides
-    @ActivityContext
-    WeatherReportAdapter.WeatherReportAdapterOnclickHandler weatherReportAdapterOnclickHandler() {
-        return new WeatherReportAdapter.WeatherReportAdapterOnclickHandler() {
-            @Override
-            public void clickListener(String weatherForToday) {
-
-                Intent intent = provideDetailIntent();
-                Log.i(ActivityModule.class.getSimpleName(), ""+intent);
-                intent.putExtra(ConstantsUtil.GETWEATHERFORTODAY, weatherForToday);
-                ContextCompat.startActivity(mActivity,intent,null);
-            }
-        };
-    }
-
-    @Provides
-    Intent provideDetailIntent(){
-
-        return new Intent(mActivity, DetailActivity.class);
-    }*/
-
 }

@@ -7,12 +7,18 @@ import com.nivedita.weatherutility.di.component.ApplicationComponent;
 import com.nivedita.weatherutility.di.component.DaggerApplicationComponent;
 import com.nivedita.weatherutility.di.module.ApplicationModule;
 import com.nivedita.weatherutility.di.module.NetworkModule;
+import com.nivedita.weatherutility.model.datalayer.DataManager;
+
+import javax.inject.Inject;
 
 /**
  * Created by PUNEETU on 02-05-2018.
  */
 
 public class WeatherUtilityApplication extends Application {
+
+    @Inject
+    DataManager dataManager;
 
     ApplicationComponent applicationComponent;
 
