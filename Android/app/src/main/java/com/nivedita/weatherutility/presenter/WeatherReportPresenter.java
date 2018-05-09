@@ -1,5 +1,7 @@
 package com.nivedita.weatherutility.presenter;
 
+import android.content.SharedPreferences;
+
 import com.nivedita.weatherutility.model.Network.LogNetworkError;
 import com.nivedita.weatherutility.model.WeatherReport;
 import com.nivedita.weatherutility.model.datalayer.DataManager;
@@ -14,7 +16,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class WeatherReportPresenter extends BasePresenter<MainMVPView> {
+public class WeatherReportPresenter extends BasePresenter<MainMVPView> implements
+        SharedPreferences.OnSharedPreferenceChangeListener {
 
     private final DataManager mDataManager;
     private CompositeDisposable compositeDisposable;
@@ -59,7 +62,7 @@ public class WeatherReportPresenter extends BasePresenter<MainMVPView> {
 
     private Flowable<WeatherReport> sendRequestToApiObservable() {
 
-        return mDataManager.getDailyWeatherReport().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+        return mDataManager.getDailyWeatherReport(mDataManager.getDefaultLocation()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
@@ -68,5 +71,14 @@ public class WeatherReportPresenter extends BasePresenter<MainMVPView> {
         if (compositeDisposable != null) {
             compositeDisposable.clear();
         }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+        //TODO: reload the servive with new location.
+         // step1: The WeatherReporter Activity gets called when location changes so implement changes in Presenter.
+         // Step2 : The shared preference change listener will identify that value is changed in shared preferences and hence refreshes the activity.
+        // Step 3: Register and un register the listener in attach and detach view.
     }
 }

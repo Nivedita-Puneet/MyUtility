@@ -23,10 +23,10 @@ public class DataManager {
         this.mSharedPrefsHelper = mSharedPrefsHelper;
     }
 
-    public Flowable<WeatherReport> getDailyWeatherReport() {
+    public Flowable<WeatherReport> getDailyWeatherReport(String place) {
 
 
-        return weatherService.getWeatherReport(ConstantsUtil.PLACE,
+        return weatherService.getWeatherReport(place,
                 Integer.toString(ConstantsUtil.COUNT),
                 ConstantsUtil.UNITS,
                 ConstantsUtil.FORMAT_PARAM,
