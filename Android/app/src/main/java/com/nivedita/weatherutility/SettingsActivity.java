@@ -31,7 +31,8 @@ public class SettingsActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem menuItem) {
 
         if (menuItem.getItemId() == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
+            //NavUtils.navigateUpFromSameTask(this);
+            onBackPressed();
         }
 
         return super.onOptionsItemSelected(menuItem);

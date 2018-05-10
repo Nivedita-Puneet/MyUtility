@@ -77,6 +77,7 @@ public class WeatherReportPresenter extends BasePresenter<MainMVPView> implement
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
         //TODO: reload the servive with new location.
+        //TODO: change the preferences and update the location.
          // step1: The WeatherReporter Activity gets called when location changes so implement changes in Presenter.
          // Step2 : The shared preference change listener will identify that value is changed in shared preferences and hence refreshes the activity.
         // Step 3: Register and un register the listener in attach and detach view.

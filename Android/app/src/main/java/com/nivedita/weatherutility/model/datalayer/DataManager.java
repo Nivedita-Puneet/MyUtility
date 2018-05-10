@@ -1,5 +1,7 @@
 package com.nivedita.weatherutility.model.datalayer;
 
+import android.content.SharedPreferences;
+
 import com.nivedita.weatherutility.model.Network.ConstantsUtil;
 import com.nivedita.weatherutility.model.Network.WeatherService;
 import com.nivedita.weatherutility.model.WeatherReport;
@@ -33,12 +35,17 @@ public class DataManager {
                 ConstantsUtil.WEATHER_API_KEY);
     }
 
-    public void storeLocationDetails(String location){
+    public void storeLocationDetails(String location) {
         mSharedPrefsHelper.put(ConstantsUtil.LOCATION_KEY, location);
     }
 
-    public String getDefaultLocation(){
+    public String getDefaultLocation() {
 
         return mSharedPrefsHelper.get(ConstantsUtil.LOCATION_KEY, ConstantsUtil.DEFAULT_LOCATION);
     }
+
+    public SharedPreferences getSharedPreferences() {
+        return mSharedPrefsHelper.getSharedPreferences();
+    }
+
 }

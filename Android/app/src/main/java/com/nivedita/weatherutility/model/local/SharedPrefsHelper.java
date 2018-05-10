@@ -26,4 +26,9 @@ public class SharedPrefsHelper {
         return mSharedPreferences.getString(key, defaultValue);
     }
 
+    public SharedPreferences getSharedPreferences() {
+
+        return this.mSharedPreferences;
+    }
+
 }
