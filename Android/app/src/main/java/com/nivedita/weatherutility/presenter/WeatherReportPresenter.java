@@ -1,6 +1,8 @@
 package com.nivedita.weatherutility.presenter;
 
 import android.content.SharedPreferences;
+import android.util.Log;
+import android.widget.TableRow;
 
 import com.nivedita.weatherutility.model.Network.LogNetworkError;
 import com.nivedita.weatherutility.model.WeatherReport;
@@ -21,6 +23,7 @@ public class WeatherReportPresenter extends BasePresenter<MainMVPView> implement
 
     private final DataManager mDataManager;
     private CompositeDisposable compositeDisposable;
+    private static boolean IS_PREFERENCES_UPDATED = false;
 
     @Inject
     public WeatherReportPresenter(DataManager mDataManager) {
@@ -36,6 +39,22 @@ public class WeatherReportPresenter extends BasePresenter<MainMVPView> implement
             compositeDisposable = new CompositeDisposable();
         }
         compositeDisposable.add(getWeatherReports());
+    }
+
+    public void updateWeather(){
+
+        if (compositeDisposable == null) {
+            compositeDisposable = new CompositeDisposable();
+        }
+        compositeDisposable.add(getWeatherReports());if (compositeDisposable == null) {
+            compositeDisposable = new CompositeDisposable();
+        }
+        if(IS_PREFERENCES_UPDATED){
+            compositeDisposable.add(getWeatherReports());
+            IS_PREFERENCES_UPDATED = false;
+        }
+        mDataManager.getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+
     }
 
     private Disposable getWeatherReports() {
@@ -61,8 +80,9 @@ public class WeatherReportPresenter extends BasePresenter<MainMVPView> implement
     }
 
     private Flowable<WeatherReport> sendRequestToApiObservable() {
-
-        return mDataManager.getDailyWeatherReport(mDataManager.getDefaultLocation()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+        String value = mDataManager.getDefaultLocation();
+        Log.i(WeatherReportPresenter.class.getSimpleName(), "The shared preference value" + value);
+        return mDataManager.getDailyWeatherReport(value).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
@@ -71,6 +91,8 @@ public class WeatherReportPresenter extends BasePresenter<MainMVPView> implement
         if (compositeDisposable != null) {
             compositeDisposable.clear();
         }
+
+        mDataManager.getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -78,6 +100,8 @@ public class WeatherReportPresenter extends BasePresenter<MainMVPView> implement
 
         //TODO: reload the servive with new location.
         //TODO: change the preferences and update the location.
+        IS_PREFERENCES_UPDATED = true;
+        Log.i(WeatherReportPresenter.class.getSimpleName() , " The weather report is updated" + IS_PREFERENCES_UPDATED);
          // step1: The WeatherReporter Activity gets called when location changes so implement changes in Presenter.
          // Step2 : The shared preference change listener will identify that value is changed in shared preferences and hence refreshes the activity.
         // Step 3: Register and un register the listener in attach and detach view.

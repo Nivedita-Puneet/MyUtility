@@ -66,6 +66,14 @@ public class WeatherReportActivity extends BaseActivity implements MainMVPView {
     }
 
     @Override
+    public void onResume() {
+
+        super.onResume();
+        weatherReportPresenter.updateWeather();
+
+    }
+
+    @Override
     public void showWeatherReports(WeatherReport weatherReport) {
 
         //TODO: Need to refactor Data processing
