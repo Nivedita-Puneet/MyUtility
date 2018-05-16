@@ -1,7 +1,6 @@
 package com.nivedita.weatherutility;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,20 +10,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.nivedita.weatherutility.model.List;
 import com.nivedita.weatherutility.model.Network.LogNetworkError;
 import com.nivedita.weatherutility.model.WeatherReport;
-import com.nivedita.weatherutility.model.Weatherattrs;
 import com.nivedita.weatherutility.presenter.WeatherReportPresenter;
 import com.nivedita.weatherutility.util.DataProcessUtil;
 import com.nivedita.weatherutility.util.WeatherDateUtils;
-import com.nivedita.weatherutility.view.MainMVPView;
-
-import java.util.ArrayList;
+import com.nivedita.weatherutility.view.WeatherReportView;
 
 import javax.inject.Inject;
 
-public class WeatherReportActivity extends BaseActivity implements MainMVPView {
+public class WeatherReportActivity extends BaseActivity implements WeatherReportView {
 
     @Inject
     WeatherReportPresenter weatherReportPresenter;

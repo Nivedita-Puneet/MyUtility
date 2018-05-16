@@ -2,12 +2,11 @@ package com.nivedita.weatherutility.presenter;
 
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.TableRow;
 
 import com.nivedita.weatherutility.model.Network.LogNetworkError;
 import com.nivedita.weatherutility.model.WeatherReport;
 import com.nivedita.weatherutility.model.datalayer.DataManager;
-import com.nivedita.weatherutility.view.MainMVPView;
+import com.nivedita.weatherutility.view.WeatherReportView;
 
 import javax.inject.Inject;
 
@@ -18,7 +17,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class WeatherReportPresenter extends BasePresenter<MainMVPView> implements
+public class WeatherReportPresenter extends BasePresenter<WeatherReportView> implements
         SharedPreferences.OnSharedPreferenceChangeListener {
 
     private final DataManager mDataManager;
@@ -32,8 +31,8 @@ public class WeatherReportPresenter extends BasePresenter<MainMVPView> implement
     }
 
     @Override
-    public void attachView(MainMVPView mainMVPView) {
-        super.attachView(mainMVPView);
+    public void attachView(WeatherReportView weatherReportView) {
+        super.attachView(weatherReportView);
 
         if (compositeDisposable == null) {
             compositeDisposable = new CompositeDisposable();
