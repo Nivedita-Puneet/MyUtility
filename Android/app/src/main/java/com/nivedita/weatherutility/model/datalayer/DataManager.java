@@ -33,6 +33,7 @@ public class DataManager {
                 ConstantsUtil.UNITS,
                 ConstantsUtil.FORMAT_PARAM,
                 ConstantsUtil.WEATHER_API_KEY);
+
     }
 
     public void storeLocationDetails(String location) {
@@ -47,7 +48,6 @@ public class DataManager {
     public SharedPreferences getSharedPreferences() {
         return mSharedPrefsHelper.getSharedPreferences();
     }
-
 
 
 }

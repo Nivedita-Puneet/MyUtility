@@ -61,11 +61,15 @@ public class WeatherReportPresenter extends BasePresenter<WeatherReportView> imp
         return sendRequestToApiObservable().subscribe(new Consumer<WeatherReport>() {
             @Override
             public void accept(WeatherReport weatherReport) throws Exception {
+
+                getMvpView().showWait();
                 if (!weatherReport.getList().isEmpty()) {
                     getMvpView().showWeatherReports(weatherReport);
+                    getMvpView().removeWait();
 
                 } else {
                     getMvpView().noWeatherReports();
+                    getMvpView().removeWait();
                 }
             }
         }, new Consumer<Throwable>() {
@@ -79,8 +83,8 @@ public class WeatherReportPresenter extends BasePresenter<WeatherReportView> imp
     }
 
     private Flowable<WeatherReport> sendRequestToApiObservable() {
+
         String value = mDataManager.getDefaultLocation();
-        Log.i(WeatherReportPresenter.class.getSimpleName(), "The shared preference value" + value);
         return mDataManager.getDailyWeatherReport(value).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
